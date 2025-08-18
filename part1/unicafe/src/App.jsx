@@ -21,8 +21,10 @@ const App = () => {
     const [good, setGood] = useState(0);
     const [neutral, setNeutral] = useState(0);
     const [bad, setBad] = useState(0);
+    const all = good + neutral + bad;
+    const score = good - bad;
 
-    // const setStat = (param) => {
+    // const setStat = (param) => {     ---> OTRA FORMA DE RENDERIZAR
     //     if (param == "good") {
     //         console.log("g+1");
     //         setGood(good + 1);
@@ -38,7 +40,7 @@ const App = () => {
     return (
         <div>
             <Title text="give feeback" />
-            {/* <Button handleClick={() => setStat("good")} text="good" />
+            {/* <Button handleClick={() => setStat("good")} text="good" /> ---> OTRA FORMA DE RENDERIZAR
             <Button handleClick={() => setStat("neutral")} text="neutral" />
             <Button handleClick={() => setStat("bad")} text="bad" /> */}
             <Button handleClick={() => setGood(good + 1)} text={"good"} />
@@ -48,9 +50,17 @@ const App = () => {
             />
             <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
             <Title text="statistics" />
-            <Stats text="good" value={good} />
-            <Stats text="neutral" value={neutral} />
-            <Stats text="bad" value={bad} />
+            <ul>
+                <Stats text="good" value={good} />
+                <Stats text="neutral" value={neutral} />
+                <Stats text="bad" value={bad} />
+                <Stats text="all" value={all} />
+                <Stats text="average" value={all == 0 ? 0 : score / all} />
+                <Stats
+                    text="positive"
+                    value={all == 0 ? "0%" : (good / all) * 100 + "%"}
+                />
+            </ul>
         </div>
     );
 };
