@@ -16,8 +16,7 @@ const Stat = ({ text, value }) => {
     );
 };
 
-const Statistics = ({ good, bad, neutral }) => {
-    const all = good + neutral + bad;
+const Statistics = ({ good, bad, neutral, all }) => {
     const score = good - bad;
 
     return (
@@ -40,6 +39,7 @@ const App = () => {
     const [good, setGood] = useState(0);
     const [neutral, setNeutral] = useState(0);
     const [bad, setBad] = useState(0);
+    const all = good + neutral + bad;
 
     // const setStat = (param) => {     ---> OTRA FORMA DE RENDERIZAR
     //     if (param == "good") {
@@ -67,7 +67,11 @@ const App = () => {
             />
             <Button handleClick={() => setBad(bad + 1)} text={"bad"} />
             <Title text="statistics" />
-            <Statistics good={good} bad={bad} neutral={neutral} />
+            {all == 0 ? (
+                "No stats"
+            ) : (
+                <Statistics all={all} good={good} bad={bad} neutral={neutral} />
+            )}
         </div>
     );
 };
