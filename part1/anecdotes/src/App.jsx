@@ -1,5 +1,9 @@
 import { useState } from "react";
 
+const Button = ({ text, handleClick }) => {
+    return <button onClick={handleClick}>{text}</button>;
+};
+
 const App = () => {
     const anecdotes = [
         "If it hurts, do it more often.",
@@ -14,7 +18,21 @@ const App = () => {
 
     const [selected, setSelected] = useState(0);
 
-    return <div>{anecdotes[selected]}</div>;
+    const randomAnecdote = () => {
+        let index = Math.floor(Math.random() * anecdotes.length);
+
+        setSelected(index);
+    };
+
+    return (
+        <div>
+            {anecdotes[selected]}
+            {console.log(selected)}
+            <div>
+                <Button text={"next anecdote"} handleClick={randomAnecdote} />
+            </div>
+        </div>
+    );
 };
 
 export default App;
