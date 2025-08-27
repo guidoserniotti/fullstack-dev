@@ -7,11 +7,19 @@ const App = () => {
 
     const addPerson = (event) => {
         event.preventDefault();
+        if (newName === "") {
+            alert("No se permiten GAYS !");
+        } else if (persons.some((person) => person.name === newName)) {
+            alert(`${newName} ya está en la agenda`);
+            setNewName("");
+            document.querySelector("input").focus();
+            return;
+        }
+
         const newPerson = { name: newName };
         setPersons(persons.concat(newPerson));
-        console.log(newPerson);
-
         setNewName("");
+        document.querySelector("input").focus();
     };
 
     const handleNameOnChange = (event) => {
