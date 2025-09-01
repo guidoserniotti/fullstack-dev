@@ -13,7 +13,6 @@ const App = () => {
 
     const hook = () => {
         axios.get("http://localhost:3001/persons").then((response) => {
-            console.log("exito");
             setPersons(response.data);
         });
     };
@@ -33,10 +32,14 @@ const App = () => {
         }
 
         const newPerson = { name: newName, number: newNumber };
-        setPersons(persons.concat(newPerson));
-        setNewName("");
-        setNewNumber("");
-        document.querySelector("input").focus();
+        axios
+            .post("http://localhost:3001/persons", newPerson)
+            .then((response) => {
+                setPersons(persons.concat(response.data));
+                setNewName("");
+                setNewNumber("");
+                document.querySelector("input").focus();
+            });
     };
 
     const handleNameOnChange = (event) => {
