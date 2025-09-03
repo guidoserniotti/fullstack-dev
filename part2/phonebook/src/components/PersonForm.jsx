@@ -9,7 +9,11 @@ const PersonForm = ({
         <form onSubmit={addPerson}>
             <div>
                 name:
-                <input value={newName} onChange={handleNameOnChange} />
+                <input
+                    id="name_form"
+                    value={newName}
+                    onChange={handleNameOnChange}
+                />
             </div>
             <div>
                 number:
