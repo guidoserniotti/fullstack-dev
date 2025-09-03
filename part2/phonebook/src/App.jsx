@@ -23,7 +23,27 @@ const App = () => {
             alert("No se permiten GAYS !");
             return;
         } else if (persons.some((person) => person.name === newName)) {
-            alert(`${newName} ya está en la agenda`);
+            if (
+                window.confirm(
+                    `${newName} ya está en la agenda. Reemplazar número?`
+                )
+            ) {
+                let existingPerson = persons.find(
+                    (person) => person.name === newName
+                );
+                let changedPerson = { ...existingPerson, number: newNumber };
+                personsService
+                    .update(existingPerson.id, changedPerson)
+                    .then(() => {
+                        setPersons(
+                            persons.map((person) =>
+                                person.name !== existingPerson.name
+                                    ? person
+                                    : changedPerson
+                            )
+                        );
+                    });
+            }
             setNewName("");
             setNewNumber("");
             return;
