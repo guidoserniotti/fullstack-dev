@@ -12,8 +12,10 @@ const create = (newObject) => {
 };
 
 const deletePerson = (id) => {
-    return axios.delete(`${baseUrl}/${id}`);
-    // return request.then((response) => response.data); --> funciona también, pero hay que definir "request"
+    let request = axios.delete(`${baseUrl}/${id}`);
+    return request.then(
+        (response) => response.data
+    ); /* --> funciona también, pero hay que definir "request" */
 };
 
 const update = (id, newObject) => {
