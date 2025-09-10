@@ -1,8 +1,8 @@
-import React from "react";
+import Weather from "./Weather";
 
-function Country({ country }) {
+const Country = ({ country, weatherCall, weatherState }) => {
     const languageList = Object.values(country.languages);
-
+    weatherCall(country);
     return (
         <div>
             <h1>{country.name.common}</h1>
@@ -17,8 +17,9 @@ function Country({ country }) {
                 ))}
             </ul>
             <img src={country.flags.png} alt={country.flags.alt} />
+            <Weather country={country} weatherState={weatherState} />
         </div>
     );
-}
+};
 
 export default Country;
