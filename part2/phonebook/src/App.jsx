@@ -67,20 +67,29 @@ const App = () => {
             setNewName("");
             setNewNumber("");
             return;
+        } else {
+            const newPerson = { name: newName, number: newNumber };
+            personsService
+                .create(newPerson)
+                .then((returnedPerson) => {
+                    setNotificationSuccess(
+                        `Se agregó a '${returnedPerson.name}' a la agenda.`
+                    );
+                    setTimeout(() => {
+                        setNotificationSuccess("");
+                    }, 5000);
+                    setPersons(persons.concat(returnedPerson));
+                    setNewName("");
+                    setNewNumber("");
+                    document.getElementById("name_form").focus();
+                })
+                .catch((error) => {
+                    setNotificationError(error.response.data.error);
+                    setTimeout(() => {
+                        setNotificationError("");
+                    }, 5000);
+                });
         }
-        const newPerson = { name: newName, number: newNumber };
-        personsService.create(newPerson).then((returnedPerson) => {
-            setNotificationSuccess(
-                `Se agregó a '${returnedPerson.name}' a la agenda.`
-            );
-            setTimeout(() => {
-                setNotificationSuccess("");
-            }, 5000);
-            setPersons(persons.concat(returnedPerson));
-            setNewName("");
-            setNewNumber("");
-            document.getElementById("name_form").focus();
-        });
     };
 
     const handleDeletePerson = (id) => {
